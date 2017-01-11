@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Lista de tribunais</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%">Código Tribunal</th>
+				<th align="center" >Descrição tribunal</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaTribunal item=comp}
+				<tr>
+					<td align="center">{$comp.SEQ_ORGAO}</td>
+					<td>{$comp.DSC_ORGAO}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-success" onclick="wiOpen('?d=pergunta&a=pergunta&f=planilhaTribunal&salvar=1');">Salvar planilha</a>
+</div>

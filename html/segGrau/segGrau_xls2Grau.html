@@ -1,0 +1,149 @@
+<form class="new" id="form2GrauXls" name="form2GrauXls" action="?" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="d" id="d" value="segGrau" />
+<input type="hidden" name="a" id="a" value="segGrau" />
+<input type="hidden" name="f" id="f" value="validaXls" />
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+
+	<table style="margin-left: 620px;*margin-left: 743px;">
+		<tr>
+			<td>
+				<div class="alert">
+			        <h4>Informação</h4>
+			        <p class="last">
+			            Verificar a formatação dos arquivos:
+			            <ul>
+			            	<li><a href="./php/exemplos/exemploXls.xls" target="_blank">Desembargador</a></li>
+			            	<li><a href="./php/exemplos/exemploCorXls.xls" target="_blank">Corregedor</a></li>
+			            	<li><a href="./php/exemplos/exemploPresXls.xls" target="_blank">Presidente</a></li>
+			            </ul>
+			        </p>
+			    </div> 
+			</td>
+		</tr>
+	</table>
+	<table style="margin-top: -165px;margin-left: 98px; width: 1%;">
+		<tr>
+			<td width="1%" colspan="4">
+				<b>Período</b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<span>
+			  		<select name="MES" id="MES" required style="width: 150px" {if $smarty.post.mes}disabled{/if}>
+						<option value="">Selecione Mes</option>
+						{foreach from=$comboMes item=mes}
+							{if $smarty.post.mes == $mes}
+								<option value="{$mes}" selected>{$mes}</option>
+							{else}
+								<option value="{$mes}">{$mes}</option>
+							{/if}
+						{/foreach}
+					</select>
+			  	</span>
+			</td>
+			<td>
+		  		<select name="ANO" id="ANO" required style="width: 150px" {if $smarty.post.ano}disabled{/if}>
+					<option value="">Selecione Ano</option>
+					{foreach from=$comboAno key=k  item=ano}
+						{if $smarty.post.ano == $ano}
+							<option value="{$ano}" selected>{$ano}</option>
+						{else}
+							<option value="{$ano}">{$ano}</option>
+						{/if}
+					{/foreach}
+				</select>
+			</td>
+		</tr>	
+		<tr>
+			<td>
+				<b>Presidência</b>
+			</td>
+			<td>
+				<b>Competência</b>
+			</td>
+		</tr>	
+		<tr>
+			<td width="1%" align="left">
+		  		<select name="SEQ_PRESIDENCIA" id="SEQ_PRESIDENCIA" required style="width: 150px" {if $smarty.post.SEQ_PRESIDENCIA}disabled{/if}>
+					<option value="">Selecione</option>
+					{foreach from=$comboPresidencia item=pre}
+						{if $smarty.post.SEQ_PRESIDENCIA == $pre.SEQ_PRESIDENCIA}
+							<option value="{$pre.SEQ_PRESIDENCIA}" selected>{$pre.DSC_SIGLA}</option>
+						{else}
+							<option value="{$pre.SEQ_PRESIDENCIA}">{$pre.DSC_SIGLA}</option>
+						{/if}
+					{/foreach}
+				</select>
+			</td>
+			<td>
+		  		<select name="FLG_DESTINATARIO_PERGUNTA" id="FLG_DESTINATARIO_PERGUNTA" required style="width: 350px" {if $smarty.post.FLG_DESTINATARIO_PERGUNTA}disabled{/if}>
+					<option value="">Selecione</option>
+					<option {if $smarty.post.FLG_DESTINATARIO_PERGUNTA == 1}selected disabled{/if} value="1" >Desembargador - Juiz Convocado/Juiz de 2º Grau</option>
+					<option {if $smarty.post.FLG_DESTINATARIO_PERGUNTA == 3}selected disabled{/if} value="3" >Corregedor-Geral/Corregedor Diverso</option>
+					<option {if $smarty.post.FLG_DESTINATARIO_PERGUNTA == 4}selected disabled{/if} value="4" >Presidente - Vice-Presidente</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Arquivo Xls</b>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<input style="border: 1px solid #CCCCCC" type="file" name="arquivo_xls" id="xls" required class="multi accept-xls span4" maxlength="1" {if $smarty.post.validoXls}disabled{/if}>
+				{if $smarty.post.validoXls}
+					<div id="documentoCriacao">
+						<a style="cursor: pointer;" onclick="wiOpen('?d=magistrado&a=magistrado&f=baixaArquivo&nomeDocumento={$smarty.post.nomeXls}');">
+							{$smarty.post.nomeXls}
+						</a>
+						<img src="./html/img/deleteFile.gif" width="13px" style="cursor: pointer;" onclick="wiOpen('?d=magistrado&a=magistrado&f=excluirArquivo&nomeDocumento={$smarty.post.nomeXls}');">
+					</div>
+				{/if}
+			</td>
+		</tr>
+		{if !$smarty.post.validoXls}
+			<tr>
+				<td colspan="2" align="center">
+					<button class="btn btn-success" type="submit" {if $smarty.post.validoXls}disabled{/if}>Validar Arquivo</button>
+				</td>
+			</tr>
+		{/if}
+	</table>
+</form>
+{if $smarty.post.validoXls}
+	<div class="alert alert-info">
+		<table style="margin-left: 280px">
+	        <tr>
+	            <td>
+	            	Xml com formatação válida, deseja salvar as informações?
+	            </td>
+	        </tr>
+	        <tr>
+	        	<td align="center">
+	        		<div id="botao">
+					    <form class="new" id="form2GrauXml" name="form2GrauXml" action="?" method="POST" enctype="multipart/form-data">
+						<input type="hidden" name="d" id="d" value="segGrau" />
+						<input type="hidden" name="a" id="a" value="segGrau" />
+						<input type="hidden" name="f" id="f" value="salvarXls" />
+						<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+						<input type="hidden" name="caminhoXls" id="caminhoXls" value="{$smarty.post.caminhoXls}" />
+						<input type="hidden" name="xls" id="xls" value="{$smarty.post.xls}" />
+						<input type="hidden" name="SEQ_PRESIDENCIA" id="SEQ_PRESIDENCIA" value="{$smarty.post.SEQ_PRESIDENCIA}" />
+						<input type="hidden" name="FLG_DESTINATARIO_PERGUNTA" id="FLG_DESTINATARIO_PERGUNTA" value="{$smarty.post.FLG_DESTINATARIO_PERGUNTA}" />
+						<input type="hidden" name="SEQ_PERIODO_PREENCHIMENTO" id="SEQ_PERIODO_PREENCHIMENTO" value="{$smarty.post.SEQ_PERIODO_PREENCHIMENTO}" />
+						<input type="hidden" name="MES" id="MES" value="{$smarty.post.mes}" />
+						<input type="hidden" name="ANO" id="ANO" value="{$smarty.post.ano}" />
+						    <button id="btn_salvar" class="btn btn-success" type="submit">Salvar</button>
+			            	<button class="btn btn-danger" type="button" onclick="wiOpen('?d=segGrau&a=segGrau&f=form2Grau&limpaPost=1&aba=2&nomeDocumento={$smarty.post.nomeXml}');">Cancelar</button>
+				        </form>
+					</div>
+					<div id="carregando" class="progress progress-success progress-striped active" style="display: none">
+						<div class="bar" style="width: 100%">Carregando</div>
+					</div>
+	        	</td>
+	        </tr>
+		</table>
+	</div>
+{/if}

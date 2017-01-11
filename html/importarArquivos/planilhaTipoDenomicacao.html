@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Lista tipo denominação secretaria</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%">Seq_Pergunta</th>
+				<th align="center" >Descrição</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaTipoDeno item=tipo}
+				<tr>
+					<td align="center">{$tipo.CODIGO}</td>
+					<td>{$tipo.DESCRICAO}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-success" onclick="wiOpen('?d=prmGrau&a=quartoPasso&f=planilhaTipoDenominacao&salvar=1');">Salvar planilha</a>
+</div>

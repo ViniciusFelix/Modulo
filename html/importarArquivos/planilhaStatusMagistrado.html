@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Lista status magistrado</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%">Seq_Status</th>
+				<th align="center" >Descrição</th>
+				<th align="center" >Descrição completa</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$statusMagistrado item=st}
+				<tr>
+					<td align="center">{$st.CODIGO}</td>
+					<td>{$st.DESCRICAO}</td>
+					<td>{$st.DESCRICAO_COMPLETA}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-success" onclick="wiOpen('?d=magistrado&a=magistrado&f=planilhaStatusMagistrado&salvar=1');">Salvar planilha</a>
+</div>

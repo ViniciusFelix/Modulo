@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Lista de magistrados do estado</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%">Seq_Magistrado</th>
+				<th width="1%" align="center" >CPF Magistrado</th>
+				<th align="center" >Nome Magistrado</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaMagistrado item=mag}
+				<tr>
+					<td align="center">{$mag.SEQ_MAGISTRADO}</td>
+					<td>{$mag.NUM_CPF_MAGISTRADO}</td>
+					<td>{$mag.Nome}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-success" onclick="wiOpen('?d=magistrado&a=magistrado&f=planilhaMagistradoEstado&salvar=1');">Salvar planilha</a>
+</div>

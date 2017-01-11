@@ -1,0 +1,70 @@
+<form class="new" id="formMagistradoXls" name="formMagistradoXls" action="?" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="d" id="d" value="magistrado" />
+<input type="hidden" name="a" id="a" value="magistrado" />
+<input type="hidden" name="f" id="f" value="validaXls" />
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+	<table>
+		<tr>
+			<td align="right">
+				<table>
+					<tr>
+						<td>
+							<input style="border: 1px solid #CCCCCC" type="file" name="arquivo_xls_mag" id="xls_mag" class="multi accept-xls span4" maxlength="1" data-maxsize="2000"{if $smarty.post.validoXls}disabled{/if}>
+							{if $smarty.post.validoXls}
+								<div id="documentoCriacao">
+									<a style="cursor: pointer;" onclick="wiOpen('?d=magistrado&a=magistrado&f=baixaArquivo&nomeDocumento={$smarty.post.nomeXls}');">
+										{$smarty.post.nomeXls}
+									</a>
+									<img src="./html/img/deleteFile.gif" width="13px" style="cursor: pointer;" onclick="wiOpen('?d=magistrado&a=magistrado&f=excluirArquivo&nomeDocumento={$smarty.post.nomeXls}');">
+								</div>
+							{/if}
+						</td>
+					</tr>
+				</table>
+			<td>
+			<td>
+				<button class="btn btn-success" type="submit" {if $smarty.post.validoXls}disabled{/if}>Validar Arquivo</button>
+			</td>
+			<td width="35%">
+				<div class="alert">
+				  <h4>Informação</h4>
+				  <p class="last">
+			            Para verificar como deve ser a formatação do arquivo xls <a href="#" onclick="wiOpen('?d=magistrado&a=magistrado&f=exemploXlsMagistrado');">clique aqui.</a>
+			       </p>
+				</div>
+			</td>
+		</tr>
+	</table>
+</form>
+{if $smarty.post.validoXls == 1}
+	<div class="alert alert-info">
+		<table align="center">
+	        <tr>
+	            <td>
+	                <label for="seq_orgao">
+	                    Xls com formatação válido, deseja salvar as informações?
+	                </label>
+	            </td>
+	        </tr>
+	        <tr align="center">
+	        	<td>
+	        		<div id="botao">
+				        <form class="new" id="formMagistradoXls" name="formMagistradoXls" action="?" method="POST" enctype="multipart/form-data">
+						<input type="hidden" name="d" id="d" value="magistrado" />
+						<input type="hidden" name="a" id="a" value="magistrado" />
+						<input type="hidden" name="f" id="f" value="salvarXls" />
+						<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+						<input type="hidden" name="caminhoXls" id="caminhoXls" value="{$smarty.post.caminhoXls}" />
+						<input type="hidden" name="xls" id="xls" value="{$smarty.post.xls}" />
+							<button id="btn_salvar" class="btn btn-success" type="submit" onclick="carregando()">Salvar</button>
+			            	<button class="btn btn-danger" type="button" onclick="wiOpen('?d=magistrado&a=magistrado&f=excluirArquivo&limpaPost=1&nomeDocumento={$smarty.post.nomeXls}');">Cancelar</button>
+			        	</form>
+			        </div>
+		        	<div id="carregando" class="progress progress-success progress-striped active" style="display: none">
+						<div class="bar" style="width: 100%">Carregando</div>
+					</div>
+				</td>
+	        </tr>
+		</table>
+	</div>
+{/if}

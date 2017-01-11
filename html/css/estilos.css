@@ -1,0 +1,43 @@
+table.display tr.over td {
+	background:#B4BAF7;
+	font-weight:bolder;
+}
+
+.contraste table.display tr.over td {
+	background: #555;
+	font-weight:bolder;
+}
+
+.contraste table{
+	/*color:black;*/
+}
+
+.contraste .alert{
+	border-color: #777777;
+	background-color: #222;
+	color: yellow;
+}
+
+.contraste h1,
+.contraste h2,
+.contraste h3,
+.contraste h4,
+.contraste h5,
+.contraste h6,
+.contraste .alert h1,
+.contraste .alert h2,
+.contraste .alert h3,
+.contraste .alert h4,
+.contraste .alert h5,
+.contraste .alert h6
+{
+	color: yellow;
+} 
+
+.contraste tr.odd, .contraste tr.odd td.sorting_1{
+	background-color: #111;
+}
+
+.contraste tr.even, .contraste tr.even td.sorting_1{
+	background-color: #333;
+}

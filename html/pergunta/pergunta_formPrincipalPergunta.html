@@ -1,0 +1,24 @@
+{if $smarty.post.aba} 
+	{literal}
+		<script>
+			setTimeout('abreAba({/literal}\"{$smarty.post.aba}\"{literal});',100);
+		</script>
+	{/literal} 
+{/if}
+<fieldset>
+	<legend>Importar perguntas de produtividade</legend>
+	<div class="tabbable" id="myTab">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab1" data-toggle="tab">Legendas</a></li>
+			<li><a href="#tab2" data-toggle="tab">Xls</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab1">
+				{include file="html/pergunta/pergunta_legenda.html"}
+			</div>
+			<div class="tab-pane" id="tab2">
+				{include file="html/pergunta/pergunta_xlsPergunta.html"}
+			</div>
+		</div>
+	</div>
+</fieldset>

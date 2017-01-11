@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Lista perguntas produtividade dos magistrados do {$smarty.session.dsc_tribunal}</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%">Seq_Pergunta</th>
+				<th width="1%">Sigla</th>
+				<th width="30%">Descrição</th>
+				<th align="center" >Glossário</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaPergMagi item=perg}
+				<tr>
+					<td width="1%" align="center">{$perg.seqPergunta}</td>
+					<td width="1%">{$perg.sigla}</td>
+					<td width="30%">{$perg.descricao}</td>
+					<td>{$perg.glossario}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-success" onclick="wiOpen('?d=importarArquivos&a=quartoPasso&f=planilhaPerguntasMagistrado&salvar=1');">Salvar planilha</a>
+</div>

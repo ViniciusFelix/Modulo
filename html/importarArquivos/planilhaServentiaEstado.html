@@ -1,0 +1,40 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Lista serventias do tribunal</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%">Códiogo serventia</th>
+				<th align="center" >Nome Serventia</th>
+				<th align="center" >Código - Nome Municipio</th>
+				<th align="center" >UF</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaServentia item=serv}
+				<tr>
+					<td align="center">{$serv.seq_corporativo}</td>
+					<td>
+						{if $serv.numOrdem}
+							{$serv.numOrdem}{$serv.DSC_ORGAO}
+						{else}
+							{$serv.DSC_ORGAO}
+						{/if}
+					</td>
+					{if $serv.seqCidade neq ''}
+						<td>{$serv.seqCidade} - {$serv.municipio}</td>
+						<td align="center">{$serv.uf}</td>
+					{else}
+						<td><i><font color="red">Não cadastrado</font></i></td>
+						<td><i><font color="red">Não cadastrado</font></i></td>
+					{/if}
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-success" onclick="wiOpen('?d=importarArquivos&a=primeiroPasso&f=planilhaServentiaEstado&salvar=1');">Salvar planilha</a>
+</div>

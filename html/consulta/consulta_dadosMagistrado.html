@@ -1,0 +1,41 @@
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+<fieldset>
+	<legend>Consulta Magistrado</legend>
+	<table class="display" id="display" width="100%">
+		<thead>
+			<tr>
+				<th width="1%"><center><b>Código Magistrado</b></center></th>
+				<th width="25%"><center><b>CPF</b></center></th>
+				<th><center><b>Nome</b></center></th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaMagistrado item=mag}
+				<tr>
+					<td align="center">
+						{$mag.SEQ_MAGISTRADO}
+					</td>
+					<td align="center">
+						{$mag.NUM_CPF_MAGISTRADO}
+					</td>
+					<td>
+						{$mag.Nome}
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>								
+	</table>
+	{if $listaMagistrado}
+		<br>
+		<div align="center">
+			<button class="btn btn-primary" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal');">Página inicial</button>
+			<button class="btn" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal&aba={$smarty.post.passo}');">Voltar</button>
+			<button class="btn btn-success" type="button" onclick="wiOpen('?d=magistrado&a=magistrado&f=planilhaMagistradoEstado&salvar=1');">Gerar XLS</button>
+		</div>
+	{/if}
+	<br />
+</fieldset>
+
+<script type="text/javascript">
+	var coluna = '2';
+</script>

@@ -1,0 +1,201 @@
+<div id="reciboTerceiro" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form id="formRecibo" name="formRecibo" action="?" method="POST" enctype="multipart/form-data" target="_blank">
+	<input type="hidden" name="d" id="d" value="consulta" />
+	<input type="hidden" name="a" id="a" value="consulta" />
+	<input type="hidden" name="f" id="f" value="gerarComprovanteImportação" />
+	<input type="hidden" name="passo" id="passo" value="3" />
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h3 id="myModalLabel">Recibo de imporatação terceiro passo</h3>
+		</div>
+		<div class="modal-body">
+			<table>
+				<tr>
+					<td>
+						<p>Mês:</p>
+						<select id="mes" name="mes" class="span2" required>
+							<option value="">Selecione</option>
+							{foreach from=$meses key=k item=m}
+								<option value="{$k}">{$m}</option>
+							{/foreach}
+					  	</select>
+					</td>
+					<td>
+						<p>Ano:</p>
+						<select id="ano" name="ano" class="span2" required>
+							<option value="">Selecione</option>
+							{foreach from=$ano item=a}
+								<option value="{$a.DESCRICAO}">{$a.DESCRICAO}</option>
+							{/foreach}
+					  	</select>
+					</td>					
+				</tr>
+			</table>
+		</div>
+		<div class="modal-footer">
+		    <button class="btn btn-primary">Gerar recibo</button>
+		</div>
+	</form>
+</div>
+<fieldset>
+	<legend><b>Passo 3:</b> Produtividade das serventias.</legend>
+	<fieldset>
+		<legend>Consulta</legend>
+		<div align="center">
+			<button class="btn" data-toggle="modal" data-target="#reciboTerceiro">Recibo de importação</button>
+			<button class="btn btn-primary" onclick="wiOpen('?d=consulta&a=consulta&f=prmGrauProdutividade&passo=3');">Consultar dados terceiro passo</button>
+			<button class="btn btn-info" onclick="wiOpen('?d=consulta&a=consulta&f=arquivosParaGravacao&passo=3');">Arquivos para gravação terceiro passo</button>
+		</div>
+	</fieldset>
+	{if !$smarty.post.validoXlsTerceiro}
+		<fieldset>
+			<legend>Xml</legend>
+			<form class="new" id="formTerPassoXml" name="formTerPassoXml" action="?" method="POST" enctype="multipart/form-data">
+			<input type="hidden" name="d" id="d" value="importarArquivos" />
+			<input type="hidden" name="a" id="a" value="importarArquivos" />
+			<input type="hidden" name="f" id="f" value="validarXml" />
+			<input type="hidden" name="passo" id="passo" value="3" />
+			<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+			  	<table align="center">
+					<tr>
+						<td align="right">
+							<input style="border: 1px solid #CCCCCC" type="file" name="arquivo_xml" class="multi accept-xml span4" maxlength="1" data-maxsize="2000" {if $smarty.post.validoTerXml}disabled{/if}>
+							{if $smarty.post.validoTerXml}
+								<div id="xmlSegundo">
+									<a style="cursor: pointer;" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=baixaArquivo&nomeDocumento={$smarty.post.nomeXml}');">
+										{$smarty.post.nomeXml}
+									</a>
+									<img src="./html/img/deleteFile.gif" width="13px" style="cursor: pointer;" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=excluirArquivo&nomeDocumento={$smarty.post.nomeXml}&aba=3');">
+								</div>
+							{/if}
+						</td>
+						<td>
+							{if !$smarty.post.validoTerXml}
+								<button class="btn btn-success" type="submit">Validar Arquivo</button>
+				           	{/if}
+						</td>
+						<td width="35%">
+							<div class="alert">
+					            <h4>Informação</h4>
+					            <p class="last">
+					                Para verificar como deve ser a formatação do arquivo xml <a href="#" onclick="wiOpen('?d=importarArquivos&a=terceiroPasso&f=gerarExemploXmlTerceiroPasso','_blank');">clique aqui.</a>
+					            </p>
+					        </div> 
+						</td>
+					</tr>
+				</table>
+			</form>
+		</fieldset>
+	{/if}
+	{if $smarty.post.validoTerXml}
+		<div class="alert alert-info">
+			<table align="center">
+		        <tr>
+		            <td>
+		                <label for="seq_orgao">
+		                    Xml com formatação válido, deseja salvar os dados?
+		                </label>
+		            </td>
+		        </tr>
+		        <tr>
+		        	<td align="center">
+		        		<div id="botao">
+				           	<form class="new" id="formTerPassoXml" name="formTerPassoXml" action="?" method="POST" enctype="multipart/form-data">
+							<input type="hidden" name="d" id="d" value="importarArquivos" />
+							<input type="hidden" name="a" id="a" value="terceiroPasso" />
+							<input type="hidden" name="f" id="f" value="salvarTerXml" />
+							<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+							<input type="hidden" name="caminhoXml" id="caminhoXml" value="{$smarty.post.caminhoXml}" />
+				                <button id="btn_salvar" class="btn btn-success" type="submit" onclick="carregando()">Salvar</button>
+				            	<button class="btn btn-danger" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal&limpaPost=1&nomeDocumento={$smarty.post.nomeXml}&aba=3');">Cancelar</button>
+				            </form>
+			           </div>
+			           <div id="carregando" class="progress progress-success progress-striped active" style="display: none">
+					   		<div class="bar" style="width: 100%">Carregando</div>
+					   </div>
+		        	</td>
+		        </tr>
+			</table>
+		</div>
+	{/if}
+		
+	{if !$smarty.post.validoTerXml}
+		<fieldset>
+			<legend>Xls</legend>
+			<form class="new" id="formSegPassoXls" name="formSegPassoXls" action="?" method="POST" enctype="multipart/form-data">
+			<input type="hidden" name="d" id="d" value="importarArquivos" />
+			<input type="hidden" name="a" id="a" value="importarArquivos" />
+			<input type="hidden" name="f" id="f" value="validaXls" />
+			<input type="hidden" name="passo" id="passo" value="3" />
+			<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+			  	<table align="center">
+					<tr>
+						<td align="right">
+							<input style="border: 1px solid #CCCCCC" type="file" name="arquivo_xls" id="xlsSegundo" class="multi accept-xls span4" maxlength="1" data-maxsize="2000" {if $smarty.post.validoXlsTerceiro}disabled{/if}>
+							{if $smarty.post.validoXlsTerceiro}
+								<div id="xlsSegundo">
+									<a style="cursor: pointer;" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=baixaArquivo&nomeDocumento={$smarty.post.nomeXls}');">
+										{$smarty.post.nomeXls}
+									</a>
+									<img src="./html/img/deleteFile.gif" width="13px" style="cursor: pointer;" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=excluirArquivo&nomeDocumento={$smarty.post.nomeXls}&aba=3');">
+								</div>
+							{/if}
+						</td>
+						<td>
+							{if !$smarty.post.validoXlsTerceiro}
+								<button class="btn btn-success" type="submit" onclick="carregando3()">Validar Arquivo</button>
+							{/if}
+						</td>
+						<td width="35%">
+							<div class="alert">
+					            <h4>Informação</h4>
+					            <p class="last">
+					                Para verificar como deve ser a formatação do arquivo xls <a href="#" {if $smarty.session.sig_tribunal neq 'CNJ'}onclick="wiOpen('?d=importarArquivos&a=terceiroPasso&f=gerarExemploXlsTerceiroPasso');"{/if}>clique aqui.</a>
+					            </p>
+					        </div> 
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<div id="carregando3" class="progress progress-success progress-striped active" style="display: none;">
+								<div class="bar" style="width: 50%;margin-left: 25%;">Carregando</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</fieldset>
+	{/if}
+	{if $smarty.post.validoXlsTerceiro}
+		<div class="alert alert-info">
+			<table align="center">
+		        <tr>
+		            <td>
+		                <label for="seq_orgao">
+		                    Xls com formatação válido, deseja salvar os dados?
+		                </label>
+		            </td>
+		        </tr>
+		        <tr>
+		        	<td align="left">
+		        		<div id="botao" align="center">
+							<form class="new" id="formQuarPassoXls" name="formQuarPassoXls" action="?" method="POST" enctype="multipart/form-data">
+							<input type="hidden" name="d" id="d" value="importarArquivos" />
+							<input type="hidden" name="a" id="a" value="terceiroPasso" />
+							<input type="hidden" name="f" id="f" value="salvarTerXls" />
+							<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+							<input type="hidden" name="nomeArquivo" id="nomeArquivo" value="{$smarty.post.nomeXls}" />
+							<input type="hidden" name="caminhoXls" id="caminhoXls" value="{$smarty.post.caminhoXls}" />
+								<button id="btn_salvar" class="btn btn-success" type="submit" onclick="carregando()">Salvar</button>
+				            	<button class="btn btn-danger" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal&limpaPost=1&nomeDocumento={$smarty.post.nomeXls}&aba=3');">Cancelar</button>
+							</form>
+						</div>
+						<div id="carregando" class="progress progress-success progress-striped active" style="display: none">
+							<div class="bar" style="width: 100%">Carregando</div>
+						</div>
+		        	</td>
+				</tr>	        	
+			</table>
+	   	</div>
+	{/if}
+</fieldset>

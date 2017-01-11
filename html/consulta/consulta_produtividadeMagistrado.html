@@ -1,0 +1,67 @@
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+<fieldset>
+	<legend>Produtividade do magistrado {$respostasMagistrado[0].magistrado}</legend>
+	<table class="table table-bordered table-striped">
+		<thead> 
+			<tr>
+				<th>Mês referência</th>
+				{if $respostasMagistrado[0].tipo}
+					<th width="35%" style="text-align: center;">Tipo magistrado</th>
+				{/if}
+				{if $respostasMagistrado[0].qtdDias or $respostasMagistrado[0].qtdDias eq 0}
+					<th width="20%" style="text-align: center;">Quantidade dias corridos produtividade magistrado</th>
+				{/if}
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{$respostasMagistrado[0].mes}</td>
+				{if $respostasMagistrado[0].tipo}
+					<td style="text-align: center;">{$respostasMagistrado[0].tipo}</td>
+				{/if}
+				{if $respostasMagistrado[0].qtdDias or $respostasMagistrado[0].qtdDias eq 0}
+					<td style="text-align: center;">{$respostasMagistrado[0].qtdDias}</td>
+				{/if}
+			</tr>
+		</tbody>
+	</table>
+	{if $respostasMagistrado[0].obs}
+		<table class="table table-bordered table-striped">
+			<thead> 
+				<tr>
+					<th>Observacao</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{$respostasMagistrado[0].obs}</td>
+				</tr>
+			</tbody>
+		</table>
+	{/if}
+	<table class="table table-bordered table-striped table-hover">
+		<thead> 
+			<tr>
+				<th width="1%">Sigla</th>
+				<th width="30%">Descrição</th>
+				<th >Glossário</th>
+				<th align="center">Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$respostasMagistrado item=mag} 
+			 	<tr>
+					<td width="1%">{$mag.sigla}</td>
+					<td width="30%">{$mag.descricao}</td>
+					<td>{$mag.glossario}</td>
+					<td><center>{$mag.resposta}</center></td>
+				</tr>
+			 {/foreach}
+		</tbody>
+	</table>
+</fieldset>
+<div align="center">
+	<button class="btn btn-primary" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal');">Página inicial</button>
+	<button class="btn" type="button" onclick="wiOpen('?d=consulta&a=consulta&f=quartoPasso&SEQ_ORGAO={$smarty.post.seqOrgao}');">Voltar</button>
+</div>
+<br />

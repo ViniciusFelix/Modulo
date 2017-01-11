@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="PRODUTIVIDADE">
+    	<xs:complexType>
+        	<xs:sequence>
+            	<xs:element name="ROW" maxOccurs="unbounded">
+                	<xs:complexType>
+                   		<xs:sequence>
+                        	<xs:element name="PERGUNTA">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:integer"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="SERVENTIA">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:integer"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="MES">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:integer"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="ANO">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:integer"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="RESPOSTA">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+			            	<xs:element name="OBSERVACAO" type="xs:string" minOccurs="0"/>
+                    	</xs:sequence>
+                	</xs:complexType>
+            	</xs:element>
+        	</xs:sequence>
+    	</xs:complexType>
+	</xs:element>
+</xs:schema>

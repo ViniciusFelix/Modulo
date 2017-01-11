@@ -1,0 +1,41 @@
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+<fieldset>
+	<legend>Produtividade da serventia {$respostaProdutividade[0].Denominacao}</legend>
+	<table class="table table-bordered table-striped">
+		<thead> 
+			<tr>
+				<th>Mês referência</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{$respostaProdutividade[0].mes}</td>
+			</tr>
+		</tbody>
+	</table>
+	<table class="table table-bordered table-striped table-hover">
+		<thead> 
+			<tr>
+				<th width="1%">Sigla</th>
+				<th width="30%">Descrição</th>
+				<th>Glossário</th>
+				<th width="1%">Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$respostaProdutividade item=proSer}
+				<tr>
+					<td>{$proSer.sigla}</td>
+					<td>{$proSer.descricao}</td>
+					<td>{$proSer.glossario}</td>
+					<td><center>{$proSer.valor}</center></td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</fieldset>
+<div align="center">
+	<button class="btn btn-primary" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal');">Página inicial</button>
+	<button class="btn" type="button" onclick="wiOpen('?d=consulta&a=consulta&f=terceiroPasso&SEQ_ORGAO={$smarty.post.seqOrgao}');">Voltar</button>
+</div>
+<br />

@@ -1,0 +1,70 @@
+<form id="form2GrauXml" name="form2GrauXml" action="?" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="d" id="d" value="segGrau" />
+<input type="hidden" name="a" id="a" value="segGrau" />
+<input type="hidden" name="f" id="f" value="validarXml" />
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+	<table>
+		<tr>
+			<td align="right">
+				<table>
+					<tr>
+						<td>
+							<b>Arqiovo XML:</b>
+						</td>
+						<td>
+							<input style="border: 1px solid #CCCCCC" type="file" name="arquivo_xml" id="xml" required class="multi accept-xml span4" maxlength="1" {if $smarty.post.validoXml}disabled{/if}>
+							{if $smarty.post.validoXml}
+								<div id="documentoCriacao">
+									<a style="cursor: pointer;" onclick="wiOpen('?d=magistrado&a=magistrado&f=baixaArquivo&nomeDocumento={$smarty.post.nomeXml}');">
+										{$smarty.post.nomeXml}
+									</a>
+									<img src="./html/img/deleteFile.gif" width="13px" style="cursor: pointer;" onclick="wiOpen('?d=magistrado&a=magistrado&f=excluirArquivo&nomeDocumento={$smarty.post.nomeXml}');">
+								</div>
+							{/if}
+						</td>
+					</tr>
+				</table>
+			<td>
+			<td>
+				<button class="btn btn-success" type="submit" {if $smarty.post.validoXml}disabled{/if}>Validar Arquivo</button>
+			</td>
+			<td width="35%">
+				<div class="alert">
+				  <h4>Informação</h4>
+				  <p class="last">
+			            Para verificar como deve ser a formatação do arquivo xml <a href="./php/exemplos/exemploXmlSegGrau.xml" target="_blank">clique aqui.</a>
+			       </p>
+				</div>
+			</td>
+		</tr>
+	</table>
+</form>
+{if $smarty.post.validoXml}
+	<div class="alert alert-info">
+       <table align="center">
+			<tr>
+           		<td>
+                   Xml com formatação válida, deseja salvar as informações?
+              	</td>
+          	</tr>
+          	<tr align="center">
+          		<td>
+          			<div id="botao">
+	          			<form id="form2GrauXml" name="form2GrauXml" action="?" method="POST" enctype="multipart/form-data">
+						<input type="hidden" name="d" id="d" value="segGrau" />
+						<input type="hidden" name="a" id="a" value="segGrau" />
+						<input type="hidden" name="f" id="f" value="salvarXml" />
+						<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+						<input type="hidden" name="caminhoXml" id="caminhoXml" value="{$smarty.post.caminhoXml}" />
+							<button id="btn_salvar" class="btn btn-success" type="submit">Salvar</button>
+			            	<button class="btn btn-danger" type="button" onclick="wiOpen('?d=segGrau&a=segGrau&f=form2Grau&limpaPost=1&nomeDocumento={$smarty.post.nomeXml}');">Cancelar</button>
+				        </form>
+				    </div>
+			        <div id="carregando" class="progress progress-success progress-striped active" style="display: none">
+						<div class="bar" style="width: 100%">Carregando</div>
+					</div>
+          		</td>
+          	</tr>
+       </table>
+	</div>
+{/if}

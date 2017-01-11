@@ -1,0 +1,70 @@
+{literal}    
+	<script>		
+		function dialog(arquivo,funcao) {
+			$.ajax({
+				type: "POST",
+				url: '?d=consulta&a='+arquivo+'&f='+funcao,
+				beforeSend: function()	
+				{
+
+				},
+				success: function(txt)
+				{
+					$('#myModal').modal('show');
+					document.getElementById('myModal').innerHTML = txt;
+						if(funcao == 'respostaProdutividadeMagistrado' || funcao == 'respostaProdutividadeMagistrado'){
+							var couna = '1';
+							var ordem = 'asc';
+						}else{
+							var couna = '0';
+							var ordem = 'asc';
+						}
+					$(document).ready(function(){
+						$('.display').dataTable( {
+							"bJQueryUI": true,
+							"sPaginationType": "full_numbers",
+							"aaSorting": [[couna,ordem]],
+							"oLanguage": {
+								"sUrl": "html/js/jquery/pt_BR"
+							}
+						} );
+					} );
+				}
+			});
+		}
+	</script>
+{/literal}
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+<fieldset>
+	<legend>Consultar Produtividade 2º Grau</legend>
+	<table id="display" class="display" width="100%">
+		<thead> 
+			<tr>
+				<th width="1%"><center><b>Tribunal</b></center></th>
+				<th><center><b>Nome</b></center></th>
+				<th><center><b>Descrição</b></center></th>
+				<th><center><b>Referência</b></center></th>
+				<th><center><b>Ações</b></center></th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaMagistrado key=k item=ser}
+				<tr>
+					<td align="center">{$ser.DSC_SIGLA}</td>
+					<td>{$ser.NOM_MAGISTRADO}</td>
+					<td>{$ser.DESCRICAO}</td>
+					<td>{$ser.DSC_MES_REFERENCIA}</td>
+					<td align="center" width="12%">
+						<a style="cursor: pointer;" onclick="dialog('consulta','produtividadeMagistradoSegGrau&seq_pro_magistrado={$ser.SEQ_PRODUTIVIDADE}');">	
+							<img src="html/img/detalhes.gif" style="width: 20px;height: 20px" alt="Produtividade do Magistrado" title="Produtividade do Magistrado"/>
+						</a>
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>								
+	</table>
+</fieldset>
+<br>
+<div id="myModal" class="modal fade" style="width: 1300px; margin: auto auto auto -650px;">
+
+</div>

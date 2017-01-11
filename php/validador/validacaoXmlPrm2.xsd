@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="SERVENTIA">
+    	<xs:complexType>
+        	<xs:sequence>
+            	<xs:element name="ROW" maxOccurs="unbounded">
+                	<xs:complexType>
+                   		<xs:sequence>
+                        	<xs:element name="CODIGO_SERVENTIA">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="GRAU"base="xs:string"/>
+                        	<xs:element name="DENOMINACAO">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="UF">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="INTERNET">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="MUNICIPIO">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="INSTALACAO">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="MUNICIPIOS_ABRANGIDOS">
+								<xs:complexType>
+        							<xs:sequence>
+        								<xs:element name="CODIGO_MUNICIPIO"  maxOccurs="unbounded"></xs:element>
+        							</xs:sequence>
+    							</xs:complexType>
+							</xs:element>
+							<xs:element name="LONGITUDE" type="xs:string"/>
+							<xs:element name="LATITUDE" type="xs:string"/>
+							<xs:element name="STATUS" type="xs:string"/>
+							<xs:element name="RECURSOS_HUMANOS">
+						    	<xs:complexType>
+        							<xs:sequence>
+        								<xs:element name="TFAuxE"  maxOccurs="unbounded"></xs:element>
+        								<xs:element name="TFAuxT"  maxOccurs="unbounded"></xs:element>
+        								<xs:element name="TPEfet"  maxOccurs="unbounded"></xs:element>
+        								<xs:element name="TPI"  maxOccurs="unbounded"></xs:element>
+        								<xs:element name="TPSV"  maxOccurs="unbounded"></xs:element>
+        							</xs:sequence>
+    							</xs:complexType>
+						    </xs:element>
+                    	</xs:sequence>
+                	</xs:complexType>
+            	</xs:element>
+        	</xs:sequence>
+    	</xs:complexType>
+	</xs:element>
+</xs:schema>

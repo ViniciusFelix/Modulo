@@ -1,0 +1,79 @@
+{literal}
+	<style>
+		table.relatorio {
+			margin-left: auto;
+			margin-right: auto;
+			font-align:justify;
+			width: 97%;
+			font-size: 13px;
+		}
+		
+		table.relatorio thead tr th{
+			background-color:#DADADA;
+			height:auto;
+			text-align: left;
+			padding: 2px;
+			border:1px solid #000000;
+		}
+		
+		table.relatorio tbody tr td{
+			border:1px solid #000000;
+		}
+	</style>
+{/literal}
+<table style="margin-left: 30px;" border="0">
+
+	<tr>
+		<td align="right">
+			<strong>Denominação :</strong>
+		</td>
+		<td>
+			{if $dadosServentia.Denominacao}
+				{$dadosServentia.Denominacao}
+			{else}
+				{$dadosServentia.DSC_ORGAO}
+			{/if}
+		</td>
+	</tr>
+	<tr>
+		<td align="right">
+			<strong>Município :</strong>
+		</td>
+		<td>
+			{$dadosServentia.Municipio} - {$dadosServentia.UF}
+		</td>
+	</tr>
+	<tr>
+		<td align="right">
+			<strong>Período :</strong>
+		</td>
+		<td>
+			<u>{$periodo.mes}</u> de {$periodo.data_inicial} a {$periodo.data_final}
+		</td>
+	</tr>
+</table>
+<br />
+<table class="relatorio" align="center" width="90%">
+	<thead> 
+		<tr>
+			<th align="center" width="7%"></th>
+			<th align="center">QUESTIONÁRIO DE PRODUTIVIDADE DA SERVENTIA</th>
+			<th align="center">Total</th>
+		</tr>
+	</thead>
+	<tbody>
+		 {foreach from=$respostasServentia key=k item=serv} 
+		 	<tr>
+				<td align="center">
+					{$k+1}
+				</td>
+				<td>
+					<strong>{$serv.titulo}: </strong>{$serv.descricao}
+				</td>
+				<td align="center">
+					{$serv.resposta}
+				</td>
+			</tr>
+		 {/foreach}
+	</tbody>
+</table> 

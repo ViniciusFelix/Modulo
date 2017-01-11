@@ -1,0 +1,47 @@
+<fieldset>
+	<legend>Produtividade dos magistrados da serventia {$dadosServentia.Denominacao}.</legend>
+	<form id="formForcaTrabalho" name="formForcaTrabalho" action="?" method="POST" enctype="multipart/form-data">
+	<input type="hidden" name="d" id="d" value="consulta" />
+	<input type="hidden" name="a" id="a" value="consulta" />
+	<input type="hidden" name="f" id="f" value="salvarForcaTrabalho" />
+	<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+	<table class="display">
+		<thead> 
+			<tr>
+				<th>Magistrado ou Serventia</th>
+				<th>Tipo magistrado</th>
+				<th>Mês/Ano</th>
+				<th align="center" width="5%"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaProdutividadeMagistradoServentia item=mag}
+				<tr>
+					<td>
+						{if $mag.SEQ_MAGISTRADO}
+							{$mag.NOM_MAGISTRADO}
+						{else}
+							{$mag.Denominacao}
+						{/if}
+					</td>
+					<td>{$mag.descricaoTipo}</td>
+					<td>{$mag.mes}</td>
+					<td align="center">
+						<a onclick="wiOpen('?d=consulta&a=consulta&f=produtividadeMagistrado&seqOrgao={$mag.SEQ_ORGAO}&mes={$mag.mes}&seqMagistrado={$mag.SEQ_MAGISTRADO}&datInicio={$mag.DAT_INICIAL}&datFim={$mag.DAT_FINAL}&tipoMagistrado={$mag.tipo}');" style="cursor: pointer;">
+	                		<img width="20px" height="20px" src="html/img/edit.png">
+	                	</a>
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+	</form>
+</fieldset>
+<div align="center">
+	<button class="btn btn-primary" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal');">Página inicial</button>
+	<button class="btn" type="button" onclick="wiOpen('?d=consulta&a=consulta&f=prmGrauProdutividade&passo=4');">Voltar</button>
+</div>
+<br />
+<script>
+	var coluna = 3;
+</script>

@@ -1,0 +1,64 @@
+<style>
+	table.relatorio {
+		margin-left: auto;
+		margin-right: auto;
+		font-align:justify;
+		width: 100%;
+		font-size: 12px;
+	}
+	
+	table.relatorio thead tr th{
+		background-color:#7CA5C7;
+		height:auto;
+		text-align: left;
+		padding: 2px;
+		border:1px solid #000000;
+	}
+	
+	table.relatorio tbody tr td{
+		border:1px solid #000000;
+	}
+</style>
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+{if !$conteudo}
+	<br />
+	<font color="red">Não foram importados informações no periodo de referência</font>
+{else}
+	<br />
+	<table class="relatorio">
+		<thead>
+			<tr>
+				<th><center><b>Data de envio do arquivo</b></center></th>
+				<th><center><b>Data de carregamento no sistema</b></center></th>
+				<th><center><b>Mês referencia</b></center></th>
+				<th><center><b>Número de registros incluídos</b></center></th>
+				<th><center><b>Número de registros alterados</b></center></th>
+				<th><center><b>Total de registros importados</b></center></th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$conteudo item=dado}
+				<tr>
+					<td align="center">
+						{$dado.dataImportacao|date_format: '%d/%m/%Y'}
+					</td>
+					<td align="center">
+						{$dado.dataInclusao|date_format: '%d/%m/%Y'}
+					</td>
+					<td align="center">
+						{$dado.mes}
+					</td>
+					<td align="center">
+						{$dado.qtdInclusao}
+					</td>
+					<td align="center">
+						{$dado.qtdAlteracao}
+					</td>
+					<td align="center">
+						{math equation="({$dado.qtdInclusao} + {$dado.qtdAlteracao})"}
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>								
+	</table>
+{/if}

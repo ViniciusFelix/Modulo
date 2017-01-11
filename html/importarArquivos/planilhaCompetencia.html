@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Lista de competências das serventias</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%">Código Competência</th>
+				<th align="center" >Descrição da competência</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaCompetencia item=comp}
+				<tr>
+					<td align="center">{$comp.SEQ_COMPETENCIA_JUIZO}</td>
+					<td>{$comp.DSC_COMPETENCIA_JUIZO}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-success" onclick="wiOpen('?d=importarArquivos&a=primeiroPasso&f=planilhaCompetencia&salvar=1');">Salvar planilha</a>
+</div>

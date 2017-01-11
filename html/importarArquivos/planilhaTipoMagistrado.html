@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Lista tipo magistrado</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%">Seq_Tipo</th>
+				<th align="center" >Descrição</th>
+				<th align="center" >Descrição completa</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaTipoMagi item=tipo}
+				<tr>
+					<td align="center">{$tipo.CODIGO}</td>
+					<td>{$tipo.DESCRICAO}</td>
+					<td>{$tipo.DESCRICAO_COMPLETA}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-success" onclick="wiOpen('?d=importarArquivos&a=quartoPasso&f=planilhaTipoMagistrado&salvar=1');">Salvar planilha</a>
+</div>

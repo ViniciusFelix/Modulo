@@ -1,0 +1,35 @@
+{if $smarty.post.aba}
+	{literal}
+		<script>
+			setTimeout('abreAba({/literal}\"{$smarty.post.aba}\"{literal});',100);
+		</script>	
+	{/literal}
+{/if}
+<fieldset>
+	<div class="tabbable" id="myTab">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab0" data-toggle="tab" onclick="fechaMsg()">Início</a></li>
+			<li><a href="#tab1" data-toggle="tab" onclick="fechaMsg()">Primeiro passo</a></li>
+			<li><a href="#tab2" data-toggle="tab" onclick="fechaMsg()">Segundo passo</a></li>
+			<li><a href="#tab3" data-toggle="tab" onclick="fechaMsg()">Terceiro passo</a></li>
+			<li><a href="#tab4" data-toggle="tab" onclick="fechaMsg()">Quarto passo</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab0">
+				{include file="html/importarArquivos/importarArquivos_Inicio.html"}
+			</div>
+			<div class="tab-pane" id="tab1">
+				{include file="html/importarArquivos/importarArquivos_primeiroPasso.html"}
+			</div>
+			<div class="tab-pane" id="tab2">
+				{include file="html/magistrado/magistrado_formPrincipalMagistrado.html"}
+			</div>
+			<div class="tab-pane" id="tab3">
+				{include file="html/importarArquivos/importarArquivos_terceiroPasso.html"}
+			</div>
+			<div class="tab-pane" id="tab4">
+				{include file="html/importarArquivos/importarArquivos_quartoPasso.html"}
+			</div>
+		</div>
+	</div>
+</fieldset>

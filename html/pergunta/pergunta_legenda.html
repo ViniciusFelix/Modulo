@@ -1,0 +1,53 @@
+{literal}    
+	<script>		
+		function dialog(funcao) {
+			$.ajax({
+				type: "POST",
+				url: '?d=pergunta&a=pergunta&f='+funcao,
+				beforeSend: function()	
+				{
+
+				},
+				success: function(txt)
+				{
+					$('#myModal').modal('show');
+					document.getElementById('myModal').innerHTML = txt;
+					$(document).ready(function(){
+						$('.display').dataTable( {
+							"bJQueryUI": true,
+							"sPaginationType": "full_numbers",
+							"oLanguage": {
+								"sUrl": "html/js/jquery/pt_BR"
+							}
+						} );
+					} );
+				}
+			});
+		}
+	</script>
+{/literal}
+{if $smarty.post.aba}
+	{literal}
+		<script>
+			setTimeout('abreAba({/literal}\"{$smarty.post.aba}\"{literal});',100);
+		</script>	
+	{/literal}
+{/if}
+<fieldset>
+	<legend>Informações que auxiliam na criação do XLS de perguntas: </legend>
+	<table style="padding: 5px">
+		<tr>
+			<td>
+				<ul>
+					<li><a style="cursor: pointer;" onclick="dialog('planilhaTribunal');">Lista de tribunais.</a><br /></li>
+					<li><a style="cursor: pointer;" onclick="dialog('planilhaPerguntas');">Lista de perguntas.</a><br /></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+<div id="myModal" class="modal fade" style="width: 1300px; margin: auto auto auto -650px;">
+
+</div>
+

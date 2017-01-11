@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+   <h3 id="myModalLabel">Produtividade do magistrado</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%"></th>
+				<th>Título</th>
+				<th>Descrição</th>
+				<th align="center" width="1%">Total</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$produtividadeMagistradoSegGrau key=k item=mag} 
+			 	<tr>
+					<td align="center">{$k+1}</td>
+					<td>{$mag.DSC_TITULO}</td>
+					<td>{$mag.DSC_DESCRICAO}</td>
+					<td>{$mag.VLR_RESPOSTA}</td>
+				</tr>
+			 {/foreach}
+		</tbody>
+	</table>
+</div>

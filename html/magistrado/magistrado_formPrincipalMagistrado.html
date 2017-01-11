@@ -1,0 +1,67 @@
+{if $smarty.post.aba} 
+	{literal}
+		<script>
+			setTimeout('abreAba({/literal}\"{$smarty.post.aba}\"{literal});',100);
+		</script>
+	{/literal} 
+{/if}
+<div id="reciboMag" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form id="formRecibo" name="formRecibo" action="?" method="POST" enctype="multipart/form-data" target="_blank">
+	<input type="hidden" name="d" id="d" value="consulta" />
+	<input type="hidden" name="a" id="a" value="consulta" />
+	<input type="hidden" name="f" id="f" value="gerarComprovanteImportação" />
+	<input type="hidden" name="passo" id="passo" value="2" />
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h3 id="myModalLabel">Recibo de imporatação segundo passo</h3>
+		</div>
+		<div class="modal-body">
+			<p>Ano:</p>
+			<select id="ano" name="ano" class="span3" required>
+				<option value="">Selecione</option>
+				{foreach from=$ano item=a}
+					<option value="{$a.DESCRICAO}">{$a.DESCRICAO}</option>
+				{/foreach}
+		  	</select> 
+		</div>
+		<div class="modal-footer">
+		    <button class="btn btn-primary">Gerar recibo</button>
+		</div>
+	</form>
+</div>
+<fieldset>
+	<legend><b>Passo 2:</b> Inclusão/atualização dos magistrados</legend>
+	<fieldset>
+		<legend>Consulta</legend>
+		<div align="center">
+			<button class="btn" data-toggle="modal" data-target="#reciboMag">Recibo de importação</button>
+			<button class="btn btn-primary" onclick="wiOpen('?d=consulta&a=consulta&f=dadosMagistrado&passo=2');">Consultar dados segundo passo</button>
+		</div>
+	</fieldset>
+	{if !$smarty.post.validoXls}
+		<fieldset>
+			<legend>Xml</legend>
+			{include file="html/magistrado/magistrado_xmlMagistrado.html"}
+		</fieldset>
+	{/if}
+	{if !$smarty.post.validoXml}
+		<fieldset>
+			<legend>Xls</legend>
+			{include file="html/magistrado/magistrado_xlsMagistrado.html"}
+		</fieldset>
+	{/if}
+<!-- 	<div class="tabbable" id="myTab"> -->
+<!-- 		<ul class="nav nav-tabs"> -->
+<!-- 			<li class="active"><a href="#tab1" data-toggle="tab">Xml</a></li> -->
+<!-- 			<li><a href="#tab2" data-toggle="tab">Xls</a></li> -->
+<!-- 		</ul> -->
+<!-- 		<div class="tab-content"> -->
+<!-- 			<div class="tab-pane active" id="tab1"> -->
+<!-- 				{include file="html/magistrado/magistrado_xmlMagistrado.html"} -->
+<!-- 			</div> -->
+<!-- 			<div class="tab-pane" id="tab2"> -->
+<!-- 				{include file="html/magistrado/magistrado_xlsMagistrado.html"} -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+</fieldset>

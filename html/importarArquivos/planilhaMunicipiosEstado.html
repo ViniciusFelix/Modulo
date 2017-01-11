@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Lista de municípios do estado</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%">UF</th>
+				<th width="1%">Seq_Municipio</th>
+				<th align="center" >Nome Municipio</th>
+				<th width="20%" align="center" >Código IBGE</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaMunicipio item=mu}
+				<tr>
+					<td align="center">{$mu.CO_UF}</td>
+					<td align="center">{$mu.ID_CIDADE}</td>
+					<td>{$mu.DS_CIDADE}</td>
+					<td>{$mu.COD_IBGE}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-success" onclick="wiOpen('?d=importarArquivos&a=primeiroPasso&f=planilhaMunicipiosEstado&salvar=1');">Salvar planilha</a>
+</div>

@@ -1,0 +1,61 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<xs:element name="CNJ_MAGISTRADO">
+    	<xs:complexType>
+        	<xs:sequence>
+            	<xs:element name="ROW" maxOccurs="unbounded">
+                	<xs:complexType>
+                   		<xs:sequence>
+                        	<xs:element name="NUM_CPF_MAGISTRADO">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:integer"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="NOM_MAGISTRADO">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="NUM_MATRICULA">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="IND_UF">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="DAT_NASCIMENTO">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:date"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+			        		<xs:element name="DSC_EMAIL_INSTITUCIONAL">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="NUM_TELEFONE_GABINETE">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:integer"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="DAT_INGRESSO_MAGISTRATURA">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:date"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="SEXO">
+                            	<xs:simpleType>
+                                	<xs:restriction base="xs:string"></xs:restriction>
+                            	</xs:simpleType>
+                        	</xs:element>
+                        	<xs:element name="STATUS" type="xs:integer"/>
+                    	</xs:sequence>
+                	</xs:complexType>
+            	</xs:element>
+        	</xs:sequence>
+    	</xs:complexType>
+	</xs:element>
+</xs:schema>

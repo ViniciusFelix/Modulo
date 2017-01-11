@@ -1,0 +1,19 @@
+<div id="div_msg" style="margin-top:3px;">
+	<div id="msgSistema" class="alert alert-error" style="display:{if empty($smarty.post.msgErro)}none{else}block{/if}">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		{$smarty.post.msgErro}
+	</div>
+	<div class="alert alert-success" style="display:{if empty($smarty.post.msgSucesso)}none{else}block{/if}">
+		<button type="button" class="close" data-dismiss="alert">&times;</button>
+		{$smarty.post.msgSucesso}
+	</div>
+</div>
+{include file="html/includeCssJs.html"} 
+ d:{$smarty.request.d} - a:{$smarty.request.a} - f:{$smarty.request.f}  
+{dynamic}
+	{if $f AND $a}
+		{include file="$template"} 
+	{else}
+		Falha ao carregar o HTML
+	{/if}
+{/dynamic}

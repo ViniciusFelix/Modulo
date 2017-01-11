@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  <h3 id="myModalLabel">Lista competências de infância e juventude</h3>
+</div>
+<div class="modal-body">
+	<table class="display">
+		<thead> 
+			<tr>
+				<th width="1%">Código Competência</th>
+				<th align="center" >Descrição da competência infância e juventude</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaCompenteciaInfanciaJuventude item=comp}
+				<tr>
+					<td align="center">{$comp.CODIGO}</td>
+					<td>{$comp.DESCRICAO}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+  <a href="#" class="btn btn-success" onclick="wiOpen('?d=importarArquivos&a=sextoPasso&f=planilhaCompetenciaInfanciaJuventude&salvar=1');">Salvar planilha</a>
+</div>

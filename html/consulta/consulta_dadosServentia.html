@@ -1,0 +1,305 @@
+{literal}    
+	<script>		
+		function dialog(arquivo,funcao) {
+			$.ajax({
+				type: "POST",
+				url: '?d=consulta&a='+arquivo+'&f='+funcao,
+				beforeSend: function()	
+				{
+
+				},
+				success: function(txt)
+				{
+					$('#myModal').modal('show');
+					document.getElementById('myModal').innerHTML = txt;
+						if(funcao == 'respostaProdutividadeMagistrado' || funcao == 'respostaProdutividadeMagistrado'){
+							var couna = '1';
+							var ordem = 'asc';
+						}else{
+							var couna = '0';
+							var ordem = 'asc';
+						}
+					$(document).ready(function(){
+						$('.display').dataTable( {
+							"bJQueryUI": true,
+							"sPaginationType": "full_numbers",
+							"aaSorting": [[couna,ordem]],
+							"oLanguage": {
+								"sUrl": "html/js/jquery/pt_BR"
+							}
+						} );
+					} );
+				}
+			});
+		}
+	</script>
+{/literal}
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+<fieldset>
+	<legend>Dados da serventia</legend>
+	<table>
+		<tr>
+			<td width="50%" valign="top">
+				<table class="table table-bordered table-striped table-hover">
+					<thead> 
+						<tr>
+							<th colspan="2"><center>Dados serventia</center></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td width="35%">
+								<strong>Tipo :</strong>
+							</td>
+							<td>
+								{if $dadosServentia[0].TIP_ORGAO eq 'VARAE'}
+									Justiça Estadual
+								{else}
+									Justiça Federal
+								{/if}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Denominação :</strong>
+							</td>
+							<td>
+								{$dadosServentia[0].Denominacao}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Município :</strong>
+							</td>
+							<td>
+								{$dadosServentia[0].Municipio} - {$dadosServentia[0].UF}
+							</td>
+						</tr>
+		                <tr>
+		                	<td>
+		                		<strong>Responsável</strong> (Secretaria):
+		                	</td>
+		               		<td>
+		               			{if $dados_secretaria.responsavel}
+		               				{$dados_secretaria.responsavel}
+		               			{else}
+		               				<i>Não informado.</i>
+		               			{/if}
+		               		</td>
+		               	</tr>
+		               	<tr>
+							<td>
+								<strong>Telefone :</strong>
+							</td>
+							<td>
+								{if $dados_secretaria.telefone}
+		               				{$dados_secretaria.telefone}
+		               			{else}
+		               				<i>Não informado.</i>
+		               			{/if}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>E-mail :</strong>
+							</td>
+							<td>
+								{$dados_secretaria.email}
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<strong>Competências :</strong>
+							</td>
+							<td >
+								{foreach from=$competencias_serventia item=comp}
+									{$comp.DSC_COMPETENCIA_JUIZO}
+									<br />
+								{/foreach}
+							</td>
+						</tr>	
+					</tbody>
+				</table>
+			</td>
+			<td valign="top">
+				<table class="table table-bordered table-striped table-hover">
+					<thead> 
+						<tr>
+							<th colspan="2"><center>Força de trabalho</center></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td width="60%"> 
+								Servidores Concursados
+							</td>
+							<td  width="1%">
+								<b><center>{$dadosComplementares.servidores}</b></center>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Funcionários Tercerizados
+							</td>
+							<td align="left">
+								<b><center>{$dadosComplementares.terceirizados}</b></center>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Servidores cedidos por entes públicos
+							</td>
+							<td align="left">
+								<b><center>{$dadosComplementares.cedidos}</b></center>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Servidores em efetivo exercício na vara no mês de referência
+							</td>
+							<td align="left">
+								<b><center>{$dadosComplementares.efetivos}</b></center>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Servidores em férias, licença, requisitados por outros entes ou de outra forma afastado da vara, durante todo o mês de referencia
+							</td>
+							<td align="left">
+								<b><center>{$dadosComplementares.afastados}</b></center>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Outros. (estagiários, trabalhadores temporários, etc...)
+							</td>
+							<td align="left">
+								<b><center>{$dadosComplementares.outros}</b></center>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Data da última atualização
+							</td>
+							<td>
+								<b><center>{$dadosComplementares.DAT_ULTIMA_INCLUSAO}</b></center>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+<fieldset>
+	<legend>Magistrados atualmente vinculados na vara</legend>
+	{if $magistado_serventia}
+		<table class="display">
+			<thead> 
+				<tr>
+					<th><center>Nome do(a) juiz(a)</center></th>
+					<th><center>Tipo</center></th>
+					<th><center>Data de início das atividades da vara</center></th>
+					<th><center>Situação atual na vara</center></th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach from=$magistado_serventia item=dado}
+					<tr>
+						<td>{$dado.Nome}</td>
+						<td><center>{$dado.Tipo}</center></td>
+						<td><center>{$dado.data_ingresso_magistratura}</center></td>
+						<td>{if $dado.status_serventia eq '1'}<font COLOR="#0000AA"><center><b>Vinculado</b></font></center>{else}Desvinculado{/if}</td>
+					</tr>
+				{/foreach}
+			</tbody>								
+		</table>
+		<br />
+	{else}
+		<div class="msgSemRegistro">Não existe nenhum magistrado vinculado a essa vara.</div>
+	{/if}
+</fieldset>
+<fieldset id="marca">
+	<legend>Produtividades da serventia</legend>
+	{if $produtividadeServentia}
+		<table class="display">
+			<thead> 
+				<tr>
+					<th align="center" >Denominação da serventia</th>
+					<th align="center" >UF</th>
+					<th width="15%" align="center" >Referência</th>
+					<th align="center" >Data inicial</th>
+					<th align="center" >Data final</th>
+					<th align="center" width="70">Respostas</th>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach from=$produtividadeServentia item=dado}
+					<tr>
+						<td>{$dado.Denominacao}</td>
+						<td><center>{$dado.uf}</center></td>
+						<td>{$dado.mes}</td>
+						<td><center>{$dado.data_inicial}</center></td>
+						<td><center>{$dado.data_final}</center></td>
+	                	<td align="center">
+<!-- 	                    	<a style="cursor: pointer;" onclick="wiOpen('?d=consulta&a=consulta&f=respostaProdutividadeServentiaPdf&SEQ_PRODUTIVIDADE_SERVENTIA={$dado.SEQ_PRODUTIVIDADE_SERVENTIA}&SEQ_ORGAO={$smarty.post.SEQ_ORGAO}','_black');"> -->
+	                    	<a style="cursor: pointer;" onclick="dialog('consulta','produtividadeServentia&seq_pro_serventia={$dado.SEQ_PRODUTIVIDADE_SERVENTIA}&SEQ_ORGAO={$smarty.post.SEQ_ORGAO}');">
+	                    		<center><img width="22px" src="html/img/edit.png"></center>
+	                    	</a>
+					 	</td>
+					</tr>
+				{/foreach}
+			</tbody>								
+		</table>
+	{else}
+		<div class="alert">Não existe nenhuma produtividade para serventia por essa referência.</div>
+	{/if}
+</fieldset>
+<br />
+<fieldset>
+	<legend>Produtividades dos magistrados</legend>
+	{if $produtividadesMagistrados}
+		<table class="display">
+			<thead> 
+				<tr>
+					<th><center><b>Nome do juiz(a)</b></center></th>
+					<th><center><b>Tipo</b></center></th>
+					<th width="15%"><center><b>Referência</b></center></th>
+					<th><center><b>Data inicial</b></center></th>
+					<th><center><b>Data final</b></center></th>
+					<th width="1%"><center><b>Respostas</b></center></th>
+<!-- 					<th width="1%"><center><b>Arquivos Meta18</b></center></th> -->
+				</tr>
+			</thead>
+			<tbody>
+				{foreach from=$produtividadesMagistrados item=dado}
+					<tr>
+						<td>{$dado.magistrado}</td>
+						<td align="center" >{$dado.tipo}</td>
+						<td align="left">{$dado.mes}</td>
+						<td align="center">{$dado.data_inicial}</td>
+						<td align="center">{$dado.data_final}</td>
+	                	<td align="center">
+<!-- 	                    	<a onclick="wiOpen('?d=relatorio&a=relatorio&f=respostaProdutividadeMagistradoPdf&SEQ_PRODUTIVIDADE_MAGISTRADO={$dado.SEQ_PRODUTIVIDADE_MAGISTRADO}&SEQ_ORGAO={$smarty.post.SEQ_ORGAO}','_black');" style="cursor: pointer;"> -->
+	                    	<a style="cursor: pointer;" onclick="dialog('consulta','respostaProdutividadeMagistrado&SEQ_PRODUTIVIDADE_MAGISTRADO={$dado.SEQ_PRODUTIVIDADE_MAGISTRADO}&SEQ_ORGAO={$smarty.post.SEQ_ORGAO}');">	
+	                    		<img width="22px" src="html/img/edit.png">
+	                    	</a>
+					 	</td>
+<!-- 					 	<td align="center"> -->
+<!-- 							<a id="listaArquivo_{$dado.SEQ_PRODUTIVIDADE_MAGISTRADO}" style="cursor: pointer;" onclick="listaArquivosMeta18({$dado.SEQ_PRODUTIVIDADE_MAGISTRADO})"><img width="22px" src="html/img/pdf.png"></a> -->
+<!-- 					 	</td> -->
+					</tr>
+				{/foreach}
+			</tbody>								
+		</table>
+	{else}
+		<div class="alert">Não existe nenhuma produtividade para magistrados por essa referência.</div>
+	{/if}
+</fieldset>
+<br />
+
+<br />
+<div id="myModal" class="modal fade" style="width: 1300px; margin: auto auto auto -650px;">
+
+</div>

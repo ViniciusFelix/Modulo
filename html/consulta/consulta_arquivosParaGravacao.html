@@ -1,0 +1,58 @@
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+<fieldset>
+	{if $smarty.post.passo eq 3}
+		<legend>Arquivos para gravação do terceiro passo</legend>
+	{else if $smarty.post.passo eq 4}
+		<legend>Arquivos para gravação do quarto passo</legend>
+	{/if}
+	<table id="display" class="display" width="100%">
+		<thead> 
+			<tr>
+				<th width="17%"><center><b>Data importação</b></center></th>
+				<th width="30%"><center><b>Arquivo</b></center></th>
+				<th><center><b>Situação</b></center></th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaArquvoParaGravacao item=arq}
+				<tr>
+					<td align="center">{$arq.DAT_IMPORTACAO|date_format: '%d/%m/%Y'}</td>
+					<td>
+						{if $arq.TIP_SITUACAO_ARQUIVO neq 2}
+							<a style="cursor: pointer;" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=baixaArquivo&nomeDocumento={$arq.NOM_ARQUIVO}');">
+								{$arq.NOM_ARQUIVO}
+							</a>
+						{else}
+							{$arq.NOM_ARQUIVO}
+						{/if}
+					</td>
+					<td>
+						{if $arq.TXT_OCORRENCIA}
+							{$arq.TXT_OCORRENCIA}
+						{else}
+							{if $arq.TIP_SITUACAO_ARQUIVO eq 0}
+								<font color="blue">Salvo na base para gravação.</font>
+							{else if $arq.TIP_SITUACAO_ARQUIVO eq 1}
+								<font color="darkgoldenrod">Gravação dos dados em andamento.</font>
+							{else if $arq.TIP_SITUACAO_ARQUIVO eq 2}
+								<font color="green">Gravação dos dados finalizada.</font>
+							{/if}
+						{/if}
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>								
+	</table>
+</fieldset>
+<br>
+<div align="center">
+	<button class="btn btn-primary" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal');">Página inicial</button>
+	<button class="btn" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal&aba={$smarty.post.passo}');">Voltar</button>
+	{if $smarty.post.passo eq 1}
+		<button class="btn btn-success" type="button" onclick="wiOpen('?d=importarArquivos&a=primeiroPasso&f=planilhaServentiaEstado&salvar=1');">Gerar XLS</button>
+	{/if}
+</div>
+<br>
+<script>
+	var coluna = 1;
+</script>

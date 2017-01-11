@@ -1,0 +1,102 @@
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+{if $smarty.post.passo eq 3 or $smarty.post.passo eq 4}
+	<fieldset>
+		<legend>Gerar XLS</legend>
+		<form class="form-horizontal" id="formPrmPassoXml" name="formPrmPassoXml" action="?" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="d" id="d" value="consulta" />
+		<input type="hidden" name="a" id="a" value="consulta" />
+		{if $smarty.post.passo eq 3}
+			<input type="hidden" name="f" id="f" value="planilhaProdutividadeServentia" />
+		{else if $smarty.post.passo eq 4}
+			<input type="hidden" name="f" id="f" value="planilhaProdutividadeMagistrado" />
+		{/if}
+		<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+			<div class="control-group">
+			  <label class="control-label" for="NUM_MATRICULA">Mes:</label>
+			  <div class="controls">
+			      <select id="mes" name="mes" class="span3" required>
+					<option value="">Selecione</option>
+					{foreach from=$meses item=m}
+						<option value="{$m}">{$m}</option>
+					{/foreach}
+				  </select>
+			      Ano:
+			      <select id="ano" name="ano" class="span3" required>
+					<option value="">Selecione</option>
+					{foreach from=$ano item=a}
+						<option value="{$a.DESCRICAO}">{$a.DESCRICAO}</option>
+					{/foreach}
+				  </select> 
+		      </div>
+			</div>
+			<div align="center">
+				<button class="btn btn-success" type="submit">Gerar XLS</button>
+			</div>
+		</form>
+	</fieldset>
+{/if}
+<fieldset>
+	{if $smarty.post.passo eq 1}
+		<legend>Consultar dados serventia</legend>
+	{else if $smarty.post.passo eq 3}
+		<legend>Consultar produtividade serventia</legend>
+	{else if $smarty.post.passo eq 4}
+		<legend>Consultar produtividade magistrado</legend>
+	{/if}
+	<table id="display" class="display" width="100%">
+		<thead> 
+			<tr>
+				{if $smarty.session.tip_orgao neq 'TRIBS'}
+					<th width="1%"><center><b>UF</b></center></th>
+				{/if}
+				<th><center><b>Denominação</b></center></th>
+				{if $smarty.session.tip_orgao neq 'TRIBS'}
+					<th width="25%"><center><b>Municipio</b></center></th>
+				{/if}				
+				<th width="1%"><center><b>Ações</b></center></th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$listaServentia key=k item=ser}
+				<tr>
+					{if $smarty.session.tip_orgao neq 'TRIBS'}
+						<td align="center">{$ser.uf}</td>
+					{/if}
+					<td>{$ser.seq_corporativo} - {if $ser.numOrdem neq '' and $ser.numOrdem neq 0}{$ser.numOrdem}{/if}{$ser.DSC_ORGAO}</td>
+					{if $smarty.session.tip_orgao neq 'TRIBS'}
+						<td align="center">
+							{if $ser.seqCidade}
+								{$ser.seqCidade} - {$ser.municipio}
+							{/if}
+						</td>
+					{/if}
+					<td align="center">
+						<a style="cursor: pointer;" onclick="wiOpen('?d=consulta&a=consulta&f=formPrincipal&SEQ_ORGAO={$ser.seq_corporativo}&SIG_TRIBUNAL={$smarty.post.SIG_TRIBUNAL}&passo={$smarty.post.passo}');">
+							<img src="html/img/detalhes.gif" style="width: 20px;height: 20px" 
+								{if $smarty.post.passo eq 1}
+									alt="Detalhes dos dados da serventia" 
+									title="Detalhes dos dados da serventia"
+								{else if $smarty.post.passo eq 3}
+									alt="Produtividade(s) informada(s) por essa serventia" 
+									title="Produtividade(s) informada(s) por essa serventia"
+								{else if $smarty.post.passo eq 4}
+									alt="Produtividade(s) informada(s) pelos magistrados dessa serventia" 
+									title="Produtividade(s) informada(s) pelos magistrados dessa serventia"
+								{/if}
+							/>
+						</a>
+					</td>
+				</tr>
+			{/foreach}
+		</tbody>								
+	</table>
+</fieldset>
+<br>
+<div align="center">
+	<button class="btn btn-primary" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal');">Página inicial</button>
+	<button class="btn" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal&aba={$smarty.post.passo}');">Voltar</button>
+	{if $smarty.post.passo eq 1}
+		<button class="btn btn-success" type="button" onclick="wiOpen('?d=importarArquivos&a=primeiroPasso&f=planilhaServentiaEstado&salvar=1');">Gerar XLS</button>
+	{/if}
+</div>
+<br>

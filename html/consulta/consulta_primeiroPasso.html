@@ -1,0 +1,141 @@
+<input type="hidden" name="token" id="token" value="{$smarty.session.token}" />
+<fieldset>
+	<legend>Informações da Serventia</legend>
+	<table class="table table-striped">
+		<tbody>
+			<tr>
+				<td width="50%"> 
+					<b>Código da serventia junto ao CNJ:</b>
+				</td>
+				<td  width="50%">
+					{$retornaDadosServentia.SEQ_ORGAO}
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<b>Nome da serventia:</b>
+				</td>
+				<td align="left">
+					{if $retornaDadosServentia.numOrdem}
+						{$retornaDadosServentia.numOrdem}{$retornaDadosServentia.DSC_ORGAO}
+					{else}
+						{$retornaDadosServentia.DSC_ORGAO}
+					{/if}
+				</td>
+			</tr>
+			{if $retornaDadosServentia.SIG_UF}
+				<tr>
+					<td>
+						<b>Unidade Federativa da serventia:</b>
+					</td>
+					<td align="left">
+						{$retornaDadosServentia.SIG_UF}
+					</td>
+				</tr>
+			{/if}
+			{if $retornaDadosServentia.FLG_ACESSO_INTERNET}
+				<tr>
+					<td>
+						<b>A serventia possui internet?</b>
+					</td>
+					<td align="left">
+						{if $retornaDadosServentia.FLG_ACESSO_INTERNET eq 'S'}
+							SIM
+						{else}
+							NÃO
+						{/if}
+					</td>
+				</tr>
+			{/if}
+			{if $retornaDadosServentia.SEQ_CIDADE}
+				<tr>
+					<td>
+						<b>Múnicipio junto ao CNJ:</b>
+					</td>
+					<td align="left">
+						{$retornaDadosServentia.SEQ_CIDADE} - {$retornaDadosServentia.DSC_CIDADE}
+					</td>
+				</tr>
+			{/if}
+			{if $listaMunicipios}
+				<tr>
+					<td>
+						<b>Municípios abrangidos pela serventia:</b>
+					</td>
+					<td align="left">
+						{foreach from=$listaMunicipios key=k item=muniSer}
+							{$muniSer.ID_CIDADE} - {$muniSer.DS_CIDADE}<br>
+						{/foreach}
+					</td>
+				</tr>
+			{/if}
+			{if $retornaCompetenciaServentia}
+				<tr>
+					<td>
+						<b>Listagem de competências das serventias:</b>
+					</td>
+					<td align="left">
+					{foreach from=$retornaCompetenciaServentia key=k item=comSer}
+						{$comSer.SEQ_COMPETENCIA_JUIZO} - {$comSer.DSC_COMPETENCIA_JUIZO}<br>
+					{/foreach}
+					</td>
+				</tr>
+			{/if}
+			{if $retornaDadosServentia.DAT_INSTALACAO_SERVENTIA and $retornaDadosServentia.DAT_INSTALACAO_SERVENTIA neq '1001-01-01'}
+				<tr>
+					<td>
+						<b>Data de instalação da Serventia:</b>
+					</td>
+					<td>
+						{$retornaDadosServentia.DAT_INSTALACAO_SERVENTIA|date_format: "%d/%m/%Y"}
+					</td>
+				</tr>
+			{/if}
+			{if $retornaDadosServentia.LATITUDE}
+				<tr>
+					<td>
+						<b>Latitude da localização da serventia:</b>
+					</td>
+					<td>
+						{$retornaDadosServentia.LATITUDE}
+					</td>
+				</tr>
+			{/if}
+			{if $retornaDadosServentia.LONGITUDE}
+				<tr>
+					<td>
+						<b>Longitude da localização da serventia:</b>
+					</td>
+					<td>
+						{$retornaDadosServentia.LONGITUDE}
+					</td>
+				</tr>
+			{/if}
+			{if $retornaDadosServentia.TIP_CLASSIFICACAO_ENTRANCIA}
+				<tr>
+					<td>
+						<b>Entrância:</b>
+					</td>
+					<td align="left">
+						{$retornaDadosServentia.TIP_CLASSIFICACAO_ENTRANCIA}ª
+					</td>
+				</tr>
+			{/if}
+			{foreach from=$respostaTrabalho item=respTrab}
+				<tr>
+					<td>
+						<b>{$respTrab.sigla}:</b>
+					</td>
+					<td>
+						{$respTrab.valor}
+					</td>
+				</tr>	
+			{/foreach}
+		</tbody>
+	</table>
+</fieldset>
+<div align="center">
+	<button class="btn btn-primary" type="button" onclick="wiOpen('?d=importarArquivos&a=importarArquivos&f=formPrincipal');">Página inicial</button>
+	<button class="btn" type="button" onclick="wiOpen('?d=consulta&a=consulta&f=prmGrauProdutividade&passo=1');">Voltar</button>
+</div>
+<br />

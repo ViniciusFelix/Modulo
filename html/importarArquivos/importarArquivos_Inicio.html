@@ -1,0 +1,119 @@
+<script>		
+	function dialog(diretorio,arquivo,funcao) {
+		$.ajax({
+			type: "POST",
+			url: '?d='+diretorio+'&a='+arquivo+'&f='+funcao,
+			beforeSend: function()	
+			{
+
+			},
+			success: function(txt)
+			{
+				$('#myModal').modal('show');
+				document.getElementById('myModal').innerHTML = txt;
+				$(document).ready(function(){
+					$('.display').dataTable( {
+						"bJQueryUI": true,
+						"sPaginationType": "full_numbers",
+						"aaSorting": [],
+						"oLanguage": {
+							"sUrl": "html/js/jquery/pt_BR"
+						}
+					} );
+				} );
+			}
+		});
+	}
+</script>
+{if $smarty.post.aba}
+	{literal}
+		<script>
+			setTimeout('abreAba({/literal}\"{$smarty.post.aba}\"{literal});',100);
+		</script>	
+	{/literal}
+{/if}
+<fieldset>
+	<legend>Informações que auxiliam na criação do XML e XLS: </legend>
+	<table style="padding: 5px">
+		<tr>
+			<td>
+				Manual do sistema
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<ul>
+					<li><a href="ManualPreenchimentoProdutividade.docx" target="_blank">Clique aqui</a> para baixar o manual do sistema.</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				Passo 1: Inclusão/Atualização de Serventias
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<ul>
+					<li><a style="cursor: pointer;" onclick="dialog('importarArquivos','primeiroPasso','planilhaServentiaEstado');">Listagem de serventias do seu tribunal.</a><br /></li>
+					{if $smarty.session.tip_orgao neq 'TRIBS' or $smarty.session.seq_orgao eq 13309}
+						<li><a style="cursor: pointer;" onclick="dialog('importarArquivos','primeiroPasso','planilhaMunicipiosEstado');">Listagem de municípios do seu tribunal.</a></li>
+					{/if}
+					{if $smarty.session.tip_orgao eq 'TRIBE' or $smarty.session.tip_orgao eq 'TRIBF' or $smarty.session.tip_orgao eq 'TRIBS'}
+						<li><a style="cursor: pointer;" onclick="dialog('importarArquivos','primeiroPasso','planilhaCompetencia');">Listagem de competências das serventias.</a></li>
+					{/if}
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Para cadastrar uma nova serventia, preencher com valor 0 (zero) o campo Identificação (campo com código da serventia junto ao CNJ).</b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<br />Passo 2: Cadastro de magistrados.
+			</td>
+		</tr>
+		<tr>
+			<td style="padding: 0 0 0 2px;cursor: pointer;">
+				<ul>
+					<li><a class="link" onclick="dialog('magistrado','magistrado','planilhaMagistradoEstado');">Listagem de magistrados do seu tribunal.</a></li>
+					<li><a class="link" onclick="dialog('magistrado','magistrado','planilhaStatusMagistrado');">Listagem de status do magistrados.</a></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<b>Para cadastrar um novo magistrado, basta o CPF informado não está em nossa base de dados para que seja efetuado.</b>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<br />Passo 3: Produtividade das serventias
+			</td>
+		</tr>
+		<tr>
+			<td style="padding: 0 0 0 2px;cursor: pointer;">
+				<ul>
+					<li><a class="link" onclick="dialog('importarArquivos','terceiroPasso','planilhaPerguntasServentia');">Listagem de perguntas referentes à produtividade da Serventia.</a></li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<br />Passo 4: Produtividade dos magistrados.
+			</td>
+		</tr>
+		<tr>
+			<td style="padding: 0 0 0 2px;cursor: pointer;">
+				<ul>
+					<li><a class="link" onclick="dialog('importarArquivos','quartoPasso','planilhaPerguntasMagistrado');">Listagem de perguntas destinadas aos magistrados.</a><br /></li>
+					<li><a class="link" onclick="dialog('importarArquivos','quartoPasso','planilhaTipoMagistrado');">Listagem de tipos de magistrados.</a></li>
+				</ul>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+
+<div id="myModal" class="modal fade" style="width: 1300px; margin: auto auto auto -650px;"></div>

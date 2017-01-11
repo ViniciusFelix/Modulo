@@ -1,0 +1,36 @@
+{if $smarty.post.aba}
+	{literal}
+		<script>
+			setTimeout('abreAba({/literal}\"{$smarty.post.aba}\"{literal});',100);
+		</script>	
+	{/literal}
+{/if}
+<fieldset>
+	<legend>Consulta importação produtividade</legend>
+	<div class="tabbable" id="myTab">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#tab1" data-toggle="tab">Primeiro passo</a></li>
+			<li><a href="#tab2" data-toggle="tab">Segundo passo</a></li>
+			<li><a href="#tab3" data-toggle="tab">Terceiro passo</a></li>
+			<li><a href="#tab4" data-toggle="tab">Quarto passo</a></li>
+			<li><a href="#tab5" data-toggle="tab">Quinto passo</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane active" id="tab1">
+				{include file="html/consulta/consulta_primeiroPasso.html"}
+			</div>
+			<div class="tab-pane" id="tab2">
+				{include file="html/consulta/consulta_segundoPasso.html"}
+			</div>
+			<div class="tab-pane" id="tab3">
+				{include file="html/consulta/consulta_terceiroPasso.html"}
+			</div>
+			<div class="tab-pane" id="tab4">
+				{include file="html/consulta/consulta_quartoPasso.html"}
+			</div>
+			<div class="tab-pane" id="tab5">
+				{include file="html/consulta/consulta_quintoPasso.html"}
+			</div>
+		</div>
+	</div>
+</fieldset>
